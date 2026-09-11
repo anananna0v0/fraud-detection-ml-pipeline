@@ -1,0 +1,15 @@
+# Local Python virtual environments
+.venv*/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Git files
+.git/
+
+# Training/test data is not needed for inference
+data/
+
+# macOS metadata
+.DS_Store
