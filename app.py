@@ -44,7 +44,7 @@ class Transaction(BaseModel):
 
 @app.get("/")
 def home():
-    return {"message": "Fraud Detection API is running"}
+    return {"message": "Fraud Detection API is running with CI/CD"}
 
 @app.post("/predict")
 def predict(transaction: Transaction):
