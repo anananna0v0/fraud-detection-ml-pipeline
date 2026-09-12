@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
+from fastapi.responses import FileResponse
 
 app = FastAPI()
 
@@ -44,7 +45,7 @@ class Transaction(BaseModel):
 
 @app.get("/")
 def home():
-    return {"message": "Fraud Detection API is running with CI/CD"}
+    return FileResponse("static/index.html")
 
 @app.post("/predict")
 def predict(transaction: Transaction):

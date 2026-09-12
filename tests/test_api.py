@@ -6,4 +6,4 @@ client = TestClient(app)
 def test_home():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Fraud Detection API is running with CI/CD"}
+    assert "Credit Card Fraud Detection" in response.text
