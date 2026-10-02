@@ -7,6 +7,9 @@
 
 <body>
     <h1>Credit Card Fraud Detection</h1>
+    <p style="font-size: 18px;">
+        A machine learning deployment project by <strong>Yen-An Chen</strong>.
+    </p>
 
     <p>
         This demo uses a Random Forest model to predict whether
@@ -29,9 +32,12 @@
     <h2>Example Transaction</h2>
 
     <p>
-        The original dataset was split into 80% training data and 20% test data.
-        The example below is a real fraudulent transaction from the test set
-        that was not used to train the model.
+        The dataset was split into 80% training data and 20% test data.
+    </p>
+
+    <p style="font-size: 20px; color: #2563eb; font-weight: bold;">
+        This is a real fraudulent transaction from the test set, unseen during training.
+        You don't need to provide your own data — just click Predict.
     </p>
 
     <p>
@@ -87,8 +93,17 @@
 
         const result = await response.json();
 
-        document.getElementById("result").textContent =
-            "Prediction: " + result.label;
+        const resultElement = document.getElementById("result");
+
+        resultElement.textContent = "Prediction: " + result.label.toUpperCase();
+        resultElement.style.fontSize = "24px";
+        resultElement.style.fontWeight = "bold";
+
+        if (result.label === "fraud") {
+            resultElement.style.color = "red";
+        } else {
+            resultElement.style.color = "green";
+        }
     }
     </script>
 </body>
