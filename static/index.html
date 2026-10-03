@@ -1,87 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Credit Card Fraud Detection</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: #1e293b;
+            padding: 50px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #0f172a;
+        }
+
+        .author {
+            color: #64748b;
+            margin-top: 8px;
+            margin-bottom: 25px;
+        }
+
+        .description {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 25px 0 35px;
+        }
+
+        .tag {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #64748b;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 25px;
+            font-weight: bold;
+            color: #0f172a;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .demo-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 14px;
+            padding: 22px;
+            margin-top: 15px;
+        }
+
+        .demo-box strong {
+            color: #1d4ed8;
+            font-size: 18px;
+        }
+
+        .demo-box p {
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 9px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+            transform: none;
+        }
+
+        #result {
+            display: none;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #result.fraud {
+            display: block;
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        #result.normal {
+            display: block;
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .details {
+            margin-top: 20px;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #2563eb;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 28px 22px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Credit Card Fraud Detection</h1>
-    <p style="font-size: 18px;">
-        A machine learning deployment project by <strong>Yen-An Chen</strong>.
-    </p>
 
-    <p>
-        This demo uses a Random Forest model to predict whether
-        a credit card transaction is fraudulent.
-    </p>
+<div class="container">
+    <div class="card">
 
-    <p>
-        <strong>Dataset:</strong>
-        Credit Card Fraud Detection dataset from Kaggle.
-        It contains 284,807 transactions, including 492 fraudulent transactions.
-    </p>
+        <h1>Credit Card Fraud Detection</h1>
 
-    <p>
-        <strong>Source:</strong>
-        <a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud" target="_blank">
-            Kaggle – Credit Card Fraud Detection
-        </a>
-    </p>
+        <p class="author">
+            Machine Learning Deployment Project by <strong>Yen-An Chen</strong>
+        </p>
 
-    <h2>Example Transaction</h2>
+        <p class="description">
+            An end-to-end machine learning application that predicts whether
+            a credit card transaction is potentially fraudulent.
+        </p>
 
-    <p>
-        The dataset was split into 80% training data and 20% test data.
-    </p>
+        <div class="tech-stack">
+            <span class="tag">Random Forest</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Docker</span>
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">Google Cloud</span>
+        </div>
 
-    <p style="font-size: 20px; color: #2563eb; font-weight: bold;">
-        This is a real fraudulent transaction from the test set, unseen during training.
-        You don't need to provide your own data — just click Predict.
-    </p>
 
-    <p>
-        Each transaction contains 30 input features: Time, Amount, and V1–V28.
-        V1–V28 are anonymized features transformed using PCA.
-    </p>
+        <!-- Dataset -->
+        <div class="section">
 
-    <button onclick="predict()">Predict</button>
-    <p id="result">Prediction will appear here.</p>
+            <div class="section-title">DATASET</div>
 
-    <script>
-    async function predict() {
-        const transaction = {
-            Time: 57007.0,
-            V1: -1.27124419171437,
-            V2: 2.46267526851135,
-            V3: -2.85139500331783,
-            V4: 2.3244800653478,
-            V5: -1.37224488981369,
-            V6: -0.948195686538643,
-            V7: -3.06523436172054,
-            V8: 1.16692694787211,
-            V9: -2.26877058844813,
-            V10: -4.88114292689057,
-            V11: 2.25514748870463,
-            V12: -4.68638689759229,
-            V13: 0.652374668512965,
-            V14: -6.17428834800643,
-            V15: 0.594379608016446,
-            V16: -4.84969238709652,
-            V17: -6.53652073527011,
-            V18: -3.11909388163881,
-            V19: 1.71549441975915,
-            V20: 0.560478075726644,
-            V21: 0.652941051330455,
-            V22: 0.0819309763507574,
-            V23: -0.221347831198339,
-            V24: -0.523582159233306,
-            V25: 0.224228161862968,
-            V26: 0.756334522703558,
-            V27: 0.632800477330469,
-            V28: 0.250187092757197,
-            Amount: 0.01
-        };
+            <div class="stats">
+
+                <div class="stat">
+                    <div class="stat-number">284,807</div>
+                    <div class="stat-label">Transactions</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">492</div>
+                    <div class="stat-label">Fraud Cases</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">80 / 20</div>
+                    <div class="stat-label">Train / Test Split</div>
+                </div>
+
+            </div>
+
+            <p class="details">
+                Each transaction contains 30 input features:
+                Time, Amount, and V1–V28.
+                V1–V28 are anonymized features transformed using PCA.
+            </p>
+
+        </div>
+
+
+        <!-- Demo -->
+        <div class="section">
+
+            <div class="section-title">LIVE MODEL DEMO</div>
+
+            <div class="demo-box">
+                <strong>Real fraudulent transaction from the test set</strong>
+
+                <p>
+                    This transaction was not used to train the model.
+                    You don't need to provide your own data — simply run the prediction.
+                </p>
+            </div>
+
+            <div class="button-container">
+                <button id="predictButton" onclick="predict()">
+                    Run Prediction
+                </button>
+            </div>
+
+            <div id="result"></div>
+
+        </div>
+
+
+        <!-- Source -->
+        <div class="section">
+
+            <div class="section-title">DATA SOURCE</div>
+
+            <p>
+                Credit Card Fraud Detection dataset from Kaggle.
+            </p>
+
+            <a
+                href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                View dataset on Kaggle →
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+async function predict() {
+
+    const transaction = {
+        Time: 57007.0,
+        V1: -1.27124419171437,
+        V2: 2.46267526851135,
+        V3: -2.85139500331783,
+        V4: 2.3244800653478,
+        V5: -1.37224488981369,
+        V6: -0.948195686538643,
+        V7: -3.06523436172054,
+        V8: 1.16692694787211,
+        V9: -2.26877058844813,
+        V10: -4.88114292689057,
+        V11: 2.25514748870463,
+        V12: -4.68638689759229,
+        V13: 0.652374668512965,
+        V14: -6.17428834800643,
+        V15: 0.594379608016446,
+        V16: -4.84969238709652,
+        V17: -6.53652073527011,
+        V18: -3.11909388163881,
+        V19: 1.71549441975915,
+        V20: 0.560478075726644,
+        V21: 0.652941051330455,
+        V22: 0.0819309763507574,
+        V23: -0.221347831198339,
+        V24: -0.523582159233306,
+        V25: 0.224228161862968,
+        V26: 0.756334522703558,
+        V27: 0.632800477330469,
+        V28: 0.250187092757197,
+        Amount: 0.01
+    };
+
+    const button = document.getElementById("predictButton");
+    const resultElement = document.getElementById("result");
+
+    button.disabled = true;
+    button.textContent = "Analyzing...";
+
+    try {
 
         const response = await fetch("/predict", {
             method: "POST",
@@ -93,18 +363,29 @@
 
         const result = await response.json();
 
-        const resultElement = document.getElementById("result");
-
-        resultElement.textContent = "Prediction: " + result.label.toUpperCase();
-        resultElement.style.fontSize = "24px";
-        resultElement.style.fontWeight = "bold";
-
         if (result.label === "fraud") {
-            resultElement.style.color = "red";
+            resultElement.className = "fraud";
+            resultElement.textContent = "⚠ Prediction: FRAUD";
         } else {
-            resultElement.style.color = "green";
+            resultElement.className = "normal";
+            resultElement.textContent = "✓ Prediction: NORMAL";
         }
+
+    } catch (error) {
+
+        resultElement.style.display = "block";
+        resultElement.style.color = "#b91c1c";
+        resultElement.textContent = "Prediction failed. Please try again.";
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Run Prediction";
+
     }
-    </script>
+}
+
+</script>
+
 </body>
 </html>
